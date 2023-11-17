@@ -11,9 +11,9 @@ class CryptoPairController
 {
     private Crypto $apiCrypto;
 
-    public function __construct(Crypto $apiCrypto)
+    public function __construct()
     {
-        $this->apiCrypto = $apiCrypto;
+        $this->apiCrypto = new Crypto();
     }
 
     public function index(): Response
@@ -29,7 +29,7 @@ class CryptoPairController
     {
         $query = $_GET['query'] ?? '';
         $query = $this->normalizeQuery($query);
-        $cryptoPair = $this->apiCrypto->getCryptoPairData($query);
+        $cryptoPair = $this->apiCrypto->searchCryptoPairData($query);
         return new Response('search', [
             'cryptoPair' => $cryptoPair->getCryptoPairs()
         ]);

@@ -24,10 +24,8 @@ class Crypto
         $url = self::API_URL . ($query ? "?symbol={$query}" : '');
         $response = $this->client->get($url);
         $data = json_decode($response->getBody()->getContents());
-
         $cryptoPairsCollection = new CryptoPairCollection();
-
-        foreach ($data->crypto as $cryptoPair) {
+        foreach ($data as $cryptoPair) {
             $cryptoPairsCollection->add(new CryptoPair(
                 $cryptoPair->symbol,
                 $cryptoPair->priceChange,
@@ -44,6 +42,30 @@ class Crypto
                 $cryptoPair->count
             ));
         }
+        return $cryptoPairsCollection;
+    }
+
+    public function searchCryptoPairData(string $query = ''): CryptoPairCollection
+    {
+        $url = self::API_URL . ($query ? "?symbol={$query}" : '');
+        $response = $this->client->get($url);
+        $data = json_decode($response->getBody()->getContents());
+        $cryptoPairsCollection = new CryptoPairCollection();
+        $cryptoPairsCollection->add(new CryptoPair(
+            $data->symbol,
+            $data->priceChange,
+            $data->priceChangePercent,
+            $data->lastPrice,
+            $data->bidPrice,
+            $data->askPrice,
+            $data->highPrice,
+            $data->lowPrice,
+            $data->volume,
+            $data->quoteVolume,
+            Carbon::parse($data->openTime),
+            Carbon::parse($data->closeTime),
+            $data->count
+        ));
         return $cryptoPairsCollection;
     }
 }

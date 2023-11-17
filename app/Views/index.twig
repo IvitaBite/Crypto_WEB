@@ -1,8 +1,28 @@
 {% include 'Partials/head.twig' %}
 {% include 'Partials/navbar.twig' %}
-
-<section>
-
-</section>
+<h1>Crypto Pairs</h1>
+<div class="container">
+    <div class="row">
+        {% for cryptoPair in cryptoPair %}
+            <div class="col-md-4">
+                <div class="box">
+                    <h3 class="card-title">{{ cryptoPair.symbol }}</h3>
+                    <p class="card-text">Last Price: {{ cryptoPair.lastPrice }}</p>
+                    <p class="card-text">Price Change: {{ cryptoPair.priceChange }}</p>
+                    <p class="card-text">Price Change Percent: {{ cryptoPair.priceChangePercent }}%</p>
+                    <p class="card-text">Bid Price: {{ cryptoPair.bidPrice }}</p>
+                    <p class="card-text">Ask Price: {{ cryptoPair.askPrice }}</p>
+                    <p class="card-text">High Price: {{ cryptoPair.highPrice }}</p>
+                    <p class="card-text">Low Price: {{ cryptoPair.lowPrice }}</p>
+                    <p class="card-text">Volume: {{ cryptoPair.volume }}</p>
+                    <p class="card-text">Quote Volume: {{ cryptoPair.quoteVolume }}</p>
+                    <p class="card-text">Open Time: {{ cryptoPair.openTime.format('d M Y H:i') }}</p>
+                    <p class="card-text">Close Time: {{ cryptoPair.closeTime.format('d M Y H:i') }}</p>
+                    <p class="card-text">Trade Count: {{ cryptoPair.count }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% include 'Partials/footer.twig' %}

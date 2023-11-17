@@ -11,13 +11,10 @@ use Carbon\Carbon;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');//todo
-$dotenv->load();
-
 $loader = new FilesystemLoader(__DIR__ . '/../app/Views');
 $twig = new Environment($loader);
 
-$this->twig->addGlobal('carbon', new Carbon());
+$twig->addGlobal('dayTime', new Carbon());
 
 $twig->addExtension(new DebugExtension());
 
